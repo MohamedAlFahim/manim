@@ -39,31 +39,36 @@ def generate_tex_file(expression, template_tex_file_body):
 
 def tex_to_dvi(tex_file):
     result = tex_file.replace(".tex", ".dvi" if not TEX_USE_CTEX else ".xdv")
+    print('RESULT:', result)
+    print('TEX_DIR:', TEX_DIR)
+    print('tex_file:', tex_file)
+    print('TEX_USE_CTEX:', TEX_USE_CTEX)
     if not os.path.exists(result):
         commands = [
             "latex",
             "-interaction=batchmode",
             "-halt-on-error",
-            "-output-directory=" + TEX_DIR,
-            tex_file,
+            '-output-directory="' + TEX_DIR + '"',
+            '"' + tex_file + '"',
             ">",
             os.devnull
-        ] if not TEX_USE_CTEX else [
+        ] if (not TEX_USE_CTEX) else [
             "xelatex",
             "-no-pdf",
             "-interaction=batchmode",
             "-halt-on-error",
-            "-output-directory=" + TEX_DIR,
+            '-output-directory="' + TEX_DIR + '"',
             tex_file,
             ">",
             os.devnull
         ]
+        print('COMMAND STRING:', " ".join(commands))
         exit_code = os.system(" ".join(commands))
+        print('EXIT CODE:', exit_code)
         if exit_code != 0:
             log_file = tex_file.replace(".tex", ".log")
             raise Exception(
-                ("Latex error converting to dvi. " if not TEX_USE_CTEX
-                else "Xelatex error converting to xdv. ") +
+                ("Latex error converting to dvi. " if (not TEX_USE_CTEX) else "Xelatex error converting to xdv. ") +
                 "See log output above or the log file: %s" % log_file)
     return result
 
