@@ -15,6 +15,8 @@ Manim runs on python 3.7. You can install the python requirements with
 git clone https://github.com/3b1b/manim.git
 cd manim
 python3 -m pip install -r requirements.txt
+pip install opencv-python
+pip3 install pydub
 python3 -m manim example_scenes.py SquareToCircle -pl
 ```
 
