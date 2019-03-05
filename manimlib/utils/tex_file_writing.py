@@ -39,6 +39,7 @@ def generate_tex_file(expression, template_tex_file_body):
 
 def tex_to_dvi(tex_file):
     result = tex_file.replace(".tex", ".dvi" if not TEX_USE_CTEX else ".xdv")
+    print('RESULT 1:', result)
     print('RESULT:', result)
     print('TEX_DIR:', TEX_DIR)
     print('tex_file:', tex_file)
@@ -58,7 +59,7 @@ def tex_to_dvi(tex_file):
             "-interaction=batchmode",
             "-halt-on-error",
             '-output-directory="' + TEX_DIR + '"',
-            tex_file,
+            '"' + tex_file + '"',
             ">",
             os.devnull
         ]
@@ -81,17 +82,19 @@ def dvi_to_svg(dvi_file, regen_if_exists=False):
     where in the dvi
     """
     result = dvi_file.replace(".dvi" if not TEX_USE_CTEX else ".xdv", ".svg")
+    print('RESULT 2:', result)
     if not os.path.exists(result):
         commands = [
             "dvisvgm",
-            dvi_file,
+            '"' + dvi_file + '"',
             "-n",
             "-v",
             "0",
             "-o",
-            result,
+            '"' + result + '"',
             ">",
             os.devnull
         ]
+        print('command string:', " ".join(commands))
         os.system(" ".join(commands))
     return result
