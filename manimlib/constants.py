@@ -20,8 +20,6 @@ if not os.path.isdir(MEDIA_DIR):
         "this behavior by writing a different directory to media_dir.txt."
     )
 
-print('ENVIRONMENT MEDIA DIR:', env_MEDIA_DIR)
-
 VIDEO_DIR = os.path.join(MEDIA_DIR, "videos")
 RASTER_IMAGE_DIR = os.path.join(MEDIA_DIR, "designs", "raster_images")
 SVG_IMAGE_DIR = os.path.join(MEDIA_DIR, "designs", "svg_images")
@@ -45,14 +43,12 @@ TEMPLATE_TEX_FILE = os.path.join(
     THIS_DIR, "tex_template.tex" if not TEX_USE_CTEX
     else "ctex_template.tex"
 )
-print('Hope this executes')
 with open(TEMPLATE_TEX_FILE, "r") as infile:
     TEMPLATE_TEXT_FILE_BODY = infile.read()
     TEMPLATE_TEX_FILE_BODY = TEMPLATE_TEXT_FILE_BODY.replace(
         TEX_TEXT_TO_REPLACE,
         "\\begin{align*}\n" + TEX_TEXT_TO_REPLACE + "\n\\end{align*}",
     )
-print('and same for this!')
 
 HELP_MESSAGE = """
    Usage:

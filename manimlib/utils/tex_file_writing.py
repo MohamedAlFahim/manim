@@ -39,11 +39,6 @@ def generate_tex_file(expression, template_tex_file_body):
 
 def tex_to_dvi(tex_file):
     result = tex_file.replace(".tex", ".dvi" if not TEX_USE_CTEX else ".xdv")
-    print('RESULT 1:', result)
-    print('RESULT:', result)
-    print('TEX_DIR:', TEX_DIR)
-    print('tex_file:', tex_file)
-    print('TEX_USE_CTEX:', TEX_USE_CTEX)
     if not os.path.exists(result):
         commands = [
             "latex",
@@ -63,9 +58,7 @@ def tex_to_dvi(tex_file):
             ">",
             os.devnull
         ]
-        print('COMMAND STRING:', " ".join(commands))
         exit_code = os.system(" ".join(commands))
-        print('EXIT CODE:', exit_code)
         if exit_code != 0:
             log_file = tex_file.replace(".tex", ".log")
             raise Exception(
@@ -82,7 +75,6 @@ def dvi_to_svg(dvi_file, regen_if_exists=False):
     where in the dvi
     """
     result = dvi_file.replace(".dvi" if not TEX_USE_CTEX else ".xdv", ".svg")
-    print('RESULT 2:', result)
     if not os.path.exists(result):
         commands = [
             "dvisvgm",
@@ -95,6 +87,5 @@ def dvi_to_svg(dvi_file, regen_if_exists=False):
             ">",
             os.devnull
         ]
-        print('command string:', " ".join(commands))
         os.system(" ".join(commands))
     return result

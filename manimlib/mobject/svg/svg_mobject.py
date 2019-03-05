@@ -47,7 +47,6 @@ class SVGMobject(VMobject):
         self.move_into_position()
 
     def ensure_valid_file(self):
-        print('SELF.FILE_NAME:', self.file_name)
         if self.file_name is None:
             raise Exception("Must specify file for SVGMobject")
         possible_paths = [
@@ -57,7 +56,6 @@ class SVGMobject(VMobject):
             self.file_name,
         ]
         for path in possible_paths:
-            print(path, os.path.exists(path))
             if os.path.exists(path):
                 self.file_path = path
                 return
